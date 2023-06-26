@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function App() {
   const [data, setData] = useState({})
-  const [location, setLocation] = useState('')
+  const [location, setLocation] = useState('delhi')
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=895284fb2d2c50a520ea537456963d9c`
 
@@ -16,6 +16,29 @@ function App() {
       setLocation('')
     }
   }
+  useEffect(() => {
+    axios.get(url).then((response) => {
+      setData(response.data)
+      console.log(response.data)
+    })
+    setLocation('')
+    // searchLocation()
+  }, [])
+
+
+  //Api call
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m`)
+  //       console.log(8998,response)
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   fetchData()
+  // },[])
 
   return (
     <div className="app">
